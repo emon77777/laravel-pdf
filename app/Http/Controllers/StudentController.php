@@ -151,4 +151,10 @@ class StudentController extends Controller
 
         return view('studentlist', compact('allmark', 'predata'));
     }
+
+    public function printPDF(Request $request)
+    {
+        dd('hello');
+    }
+
 }

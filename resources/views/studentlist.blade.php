@@ -74,10 +74,10 @@
                 <button type="button" id="button1" class="btn btn-warning">Print Preview</button>
             </div>
             <div class="col-sm">
-                <a href="{{ url('student/all') }}"><button type="button" id="button1" class="btn btn-info">Clear Filter</button></a>
+                <a href="{{ url('student/all') }}"><button type="button" class="btn btn-info">Clear Filter</button></a>
             </div>
             <div class="col-sm">
-                <button type="button" class="btn btn-success float-right">Print PDF</button>
+                <button type="button" id="button2" class="btn btn-success float-right">Print PDF</button>
             </div>
         </div>
     
@@ -160,7 +160,8 @@
         $('#pdf').submit();
     });
     $('#button2').click(function(){
-        $('#pdf').attr('action', '{{ url("student/all") }}');
+        $('#pdf').attr('action', '{{ url("student/pdf") }}');
+        $('#pdf').submit();
     });
 
     $('#inlineRadio1').click(function(){
