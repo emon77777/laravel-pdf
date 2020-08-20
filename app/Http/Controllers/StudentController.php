@@ -57,6 +57,8 @@ class StudentController extends Controller
             'fct1' => true,
             'fct2' => true,
             'fct3' => true,
+            'half_yearly_column' => true,
+            'final_column' => true,
         );
         $allmark = Mark::all();
         foreach($allmark as $key => $mark)
@@ -105,7 +107,9 @@ class StudentController extends Controller
             'hct3' => $request->input('hct3') ? true : false,
             'fct1' => $request->input('fct1') ? true : false,
             'fct2' => $request->input('fct2') ? true : false,
-            'fct3' => $request->input('fct3') ? true : false
+            'fct3' => $request->input('fct3') ? true : false,
+            'half_yearly_column' => $request->input('half_yearly_column') ? true : false,
+            'final_column' => $request->input('final_column') ? true : false,
         );
         $coutnhct = function($predata){
             return (($predata['hct1'] == true ? 1 : 0) + ($predata['hct2'] == true ? 1 : 0) + ($predata['hct3'] == true ? 1 : 0));
@@ -124,7 +128,11 @@ class StudentController extends Controller
 
         foreach($allmark as $key => $mark)
         {
-            $mark['havgct'] = round((( ($predata['hct1'] == true ? $mark['h_ct_one'] : 0) + ($predata['hct2'] == true ? $mark['h_ct_two'] : 0) + ($predata['hct3'] == true ? $mark['h_ct_three'] : 0) ) / $hctCount), 2);
+            if ($hctCount != 0) {
+                $mark['havgct'] = round(((($predata['hct1'] == true ? $mark['h_ct_one'] : 0) + ($predata['hct2'] == true ? $mark['h_ct_two'] : 0) + ($predata['hct3'] == true ? $mark['h_ct_three'] : 0)) / $hctCount), 2);
+            }else{
+                $mark['havgct'] = round((($mark['h_ct_one']  + $mark['h_ct_two'] + $mark['h_ct_three']) / 3), 2);
+            }
 
             $mark['h_and_avg_ct'] = round(($mark['havgct'] + $mark['half_yearly']), 2);
             $mark['h_convert'] = round(((($mark['h_and_avg_ct']) / 120) * 100), 2);
