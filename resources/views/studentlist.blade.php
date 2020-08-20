@@ -4,6 +4,69 @@
 
 <div class="container">
     <div class="row justify-content-center">
+        <div class="">
+            <a href="{{ route('student') }}"><button type="button" class="btn btn-info">Add Sudents</button></a>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin:20px">
+        <form class="form-horizontal" method="post" action="">
+            <div class="card">
+                <div class="form-group">
+                    <div>
+                        <label class="form-check-label" for="inlineRadio1"><h5>* How you want to see Grand result ?</h5> </label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="both" checked>
+                            <label class="form-check-label" for="inlineRadio1">Half yearly and Final</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="final">
+                            <label class="form-check-label" for="inlineRadio2">Only Final</label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-check-label" for="inlineRadio1"><h5>* How many Half Yearly CT's you want to calculate ?</h5> </label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="ct1" value="ct1" checked>
+                            <label class="form-check-label" for="ct1">CT1</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="ct2" value="ct2" checked>
+                            <label class="form-check-label" for="ct2">CT2</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="ct3" value="ct3" checked>
+                            <label class="form-check-label" for="ct3">CT3</label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-check-label" for="inlineRadio1"><h5>* How many Final CT's you want to calculate ?</h5> </label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="ct1" value="ct1" checked>
+                            <label class="form-check-label" for="ct1">CT1</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="ct2" value="ct2" checked>
+                            <label class="form-check-label" for="ct2">CT2</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="ct3" value="ct3" checked>
+                            <label class="form-check-label" for="ct3">CT3</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+        <div class="row">
+            <div class="col-sm">
+                <button type="button" class="btn btn-warning">Print Preview</button>
+            </div>
+            <div class="col-sm">
+                <button type="button" class="btn btn-success float-right">Print PDF</button>
+            </div>
+        </div>
+    
+    <div class="row justify-content-center">
         <table class="table-bordered table-sm">
             <thead>
                 <tr class="text-center">
