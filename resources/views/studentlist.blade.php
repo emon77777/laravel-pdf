@@ -9,7 +9,8 @@
         </div>
     </div>
     <div class="row justify-content-center" style="margin:20px">
-        <form class="form-horizontal" method="post" action="">
+        <form class="form-horizontal" id="pdf" method="post" action="">
+            @csrf
             <div class="card">
                 <div class="form-group">
                     <div>
@@ -26,30 +27,30 @@
                     <div>
                         <label class="form-check-label" for="inlineRadio1"><h5>* How many Half Yearly CT's you want to calculate ?</h5> </label>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="hct1" value="hct1" {{ ($predata['hct1'] == true ? "checked" : '') }}>
+                            <input class="form-check-input" type="checkbox" id="hct1" name="hct1" {{ ($predata['hct1'] == true ? "checked" : '') }}>
                             <label class="form-check-label" for="hct1">CT1</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="hct1" value="hct1" {{ ($predata['hct2'] == true ? "checked" : '') }}>
+                            <input class="form-check-input" type="checkbox" id="hct2" name="hct2" {{ ($predata['hct2'] == true ? "checked" : '') }}>
                             <label class="form-check-label" for="hct1">CT2</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="hct3" value="hct3" {{ ($predata['hct3'] == true ? "checked" : '') }}>
+                            <input class="form-check-input" type="checkbox" id="hct3" name="hct3" {{ ($predata['hct3'] == true ? "checked" : '') }}>
                             <label class="form-check-label" for="hct3">CT3</label>
                         </div>
                     </div>
                     <div>
                         <label class="form-check-label" for="inlineRadio1"><h5>* How many Final CT's you want to calculate ?</h5> </label>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="fct1" value="fct1"  {{ ($predata['fct1'] == true ? "checked" : '') }}>
+                            <input class="form-check-input" type="checkbox" id="fct1" name="fct1" {{ ($predata['fct1'] == true ? "checked" : '') }}>
                             <label class="form-check-label" for="fct1">CT1</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="fct2" value="fct2"  {{ ($predata['fct2'] == true ? "checked" : '') }}>
+                            <input class="form-check-input" type="checkbox" id="fct2" name="fct2" {{ ($predata['fct2'] == true ? "checked" : '') }}>
                             <label class="form-check-label" for="fct2">CT2</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="fct3" value="fct3"  {{ ($predata['fct3'] == true ? "checked" : '') }}>
+                            <input class="form-check-input" type="checkbox" id="fct3" name="fct3" {{ ($predata['fct3'] == true ? "checked" : '') }}>
                             <label class="form-check-label" for="fct3">CT3</label>
                         </div>
                     </div>
@@ -59,7 +60,7 @@
     </div>
         <div class="row">
             <div class="col-sm">
-                <button type="button" class="btn btn-warning">Print Preview</button>
+                <button type="button" id="button1" class="btn btn-warning">Print Preview</button>
             </div>
             <div class="col-sm">
                 <button type="button" class="btn btn-success float-right">Print PDF</button>
@@ -121,4 +122,15 @@
         </table>
     </div>
 </div>
+
+<script>
+    $('#button1').click(function(){
+        $('#pdf').attr('action', '{{ url("student/all") }}');
+        $('#pdf').submit();
+    });
+
+    $('#button2').click(function(){
+        $('#pdf').attr('action', 'page2');
+    });
+</script>
 @endsection

@@ -18,5 +18,6 @@ Route::get('/', function () {
 });
 
 Route::get('student', 'StudentController@index')->name('student');
+Route::post('student/all', 'StudentController@showCustomList');
 Route::post('student/add', 'StudentController@addStudent');
 Route::get('student/all', 'StudentController@allStudent')->name('allStudent');
