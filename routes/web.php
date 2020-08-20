@@ -13,10 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
+Route::get('/', 'StudentController@index')->name('student');
 Route::get('student', 'StudentController@index')->name('student');
 Route::post('student/all', 'StudentController@showCustomList');
 Route::post('student/add', 'StudentController@addStudent');

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Mark;
+use Mpdf\Mpdf;
 
 class StudentController extends Controller
 {
@@ -120,7 +122,12 @@ class StudentController extends Controller
         $coutgrand = function($predata){
             return (($predata['examcount'] == "both" ? 2 : 1));
         };
+        if($coutnhct($predata) == 0)
+            if($predata['examcount'] == "both")
+                return redirect()->back()->withErrors(['Please Select at least one Half Yearly CT']);
         $hctCount = ($coutnhct($predata));
+        if($coutnfct($predata) == 0)
+            return redirect()->back()->withErrors(['Please Select at least one Final term CT']);
         $fctCount = ($coutnfct($predata));
         $grandCount = ($coutgrand($predata));
 
@@ -154,7 +161,71 @@ class StudentController extends Controller
 
     public function printPDF(Request $request)
     {
-        dd('hello');
+        
+        $marks=[];
+        $predata = array(
+            'examcount' => $request->input('examcount'),
+            'hct1' => $request->input('hct1') ? true : false,
+            'hct2' => $request->input('hct2') ? true : false,
+            'hct3' => $request->input('hct3') ? true : false,
+            'fct1' => $request->input('fct1') ? true : false,
+            'fct2' => $request->input('fct2') ? true : false,
+            'fct3' => $request->input('fct3') ? true : false,
+            'half_yearly_column' => $request->input('half_yearly_column') ? true : false,
+            'final_column' => $request->input('final_column') ? true : false,
+        );
+        $coutnhct = function($predata){
+            return (($predata['hct1'] == true ? 1 : 0) + ($predata['hct2'] == true ? 1 : 0) + ($predata['hct3'] == true ? 1 : 0));
+        };
+        $coutnfct = function($predata){
+            return (($predata['fct1'] == true ? 1 : 0) + ($predata['fct2'] == true ? 1 : 0) + ($predata['fct3'] == true ? 1 : 0));
+        };
+        $coutgrand = function($predata){
+            return (($predata['examcount'] == "both" ? 2 : 1));
+        };
+        if($coutnhct($predata) == 0)
+            if($predata['examcount'] == "both")
+                return redirect()->back()->withErrors(['Please Select at least one Half Yearly CT']);
+        $hctCount = ($coutnhct($predata));
+        if($coutnfct($predata) == 0)
+            return redirect()->back()->withErrors(['Please Select at least one Final term CT']);
+        $fctCount = ($coutnfct($predata));
+        $grandCount = ($coutgrand($predata));
+
+        $allmark = Mark::all();
+
+        foreach($allmark as $key => $mark)
+        {
+            if ($hctCount != 0) {
+                $mark['havgct'] = round(((($predata['hct1'] == true ? $mark['h_ct_one'] : 0) + ($predata['hct2'] == true ? $mark['h_ct_two'] : 0) + ($predata['hct3'] == true ? $mark['h_ct_three'] : 0)) / $hctCount), 2);
+            }else{
+                $mark['havgct'] = round((($mark['h_ct_one']  + $mark['h_ct_two'] + $mark['h_ct_three']) / 3), 2);
+            }
+
+            $mark['h_and_avg_ct'] = round(($mark['havgct'] + $mark['half_yearly']), 2);
+            $mark['h_convert'] = round(((($mark['h_and_avg_ct']) / 120) * 100), 2);
+
+            $mark['favgct'] = round((( ($predata['fct1'] == true ? $mark['f_ct_one'] : 0) + ($predata['fct2'] == true ? $mark['f_ct_two'] : 0) + ($predata['fct3'] == true ? $mark['f_ct_three'] : 0) ) / $fctCount), 2);
+            
+            $mark['f_and_avg_ct'] = round(($mark['favgct'] + $mark['final']), 2);
+            $mark['f_convert'] = round(((($mark['f_and_avg_ct']) / 120) * 100), 2);
+
+            $mark['grand'] = round(  ($predata['examcount'] == "both" ? ($mark['h_convert'] + $mark['f_convert']) : ($mark['f_convert'])), 2);
+            $mark['avg_grand'] = round((($mark['grand']) / $grandCount), 2);
+            $marks[]['avg_grand'] = $mark['avg_grand'];
+            $mark['rank'] = '';
+        }
+        $this->calculateRank($allmark, $marks);
+        $filename = 'Student_list.pdf';
+        $mpdf = new Mpdf();
+
+        $stylesheet = file_get_contents('css/mpdf.css');
+        $mpdf->WriteHTML($stylesheet,1);
+        
+        $html = \View::make('table', compact('allmark', 'predata'));
+        $mpdf->WriteHTML($html, \Mpdf\HTMLParserMode::HTML_BODY);
+
+        $mpdf->Output($filename, 'I');
     }
 
 }
