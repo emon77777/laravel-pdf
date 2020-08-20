@@ -15,42 +15,42 @@
                     <div>
                         <label class="form-check-label" for="inlineRadio1"><h5>* How you want to see Grand result ?</h5> </label>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="both" checked>
+                            <input class="form-check-input" type="radio" name="examcount" id="inlineRadio1" value="both" {{ ($predata['examcount'] == 'both' ? "checked" : '') }}>
                             <label class="form-check-label" for="inlineRadio1">Half yearly and Final</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="final">
+                            <input class="form-check-input" type="radio" name="examcount" id="inlineRadio2" value="final" {{ ($predata['examcount'] == 'final' ? "checked" : '') }}>
                             <label class="form-check-label" for="inlineRadio2">Only Final</label>
                         </div>
                     </div>
                     <div>
                         <label class="form-check-label" for="inlineRadio1"><h5>* How many Half Yearly CT's you want to calculate ?</h5> </label>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="ct1" value="ct1" checked>
-                            <label class="form-check-label" for="ct1">CT1</label>
+                            <input class="form-check-input" type="checkbox" id="hct1" value="hct1" {{ ($predata['hct1'] == true ? "checked" : '') }}>
+                            <label class="form-check-label" for="hct1">CT1</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="ct2" value="ct2" checked>
-                            <label class="form-check-label" for="ct2">CT2</label>
+                            <input class="form-check-input" type="checkbox" id="hct1" value="hct1" {{ ($predata['hct2'] == true ? "checked" : '') }}>
+                            <label class="form-check-label" for="hct1">CT2</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="ct3" value="ct3" checked>
-                            <label class="form-check-label" for="ct3">CT3</label>
+                            <input class="form-check-input" type="checkbox" id="hct3" value="hct3" {{ ($predata['hct3'] == true ? "checked" : '') }}>
+                            <label class="form-check-label" for="hct3">CT3</label>
                         </div>
                     </div>
                     <div>
                         <label class="form-check-label" for="inlineRadio1"><h5>* How many Final CT's you want to calculate ?</h5> </label>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="ct1" value="ct1" checked>
-                            <label class="form-check-label" for="ct1">CT1</label>
+                            <input class="form-check-input" type="checkbox" id="fct1" value="fct1"  {{ ($predata['fct1'] == true ? "checked" : '') }}>
+                            <label class="form-check-label" for="fct1">CT1</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="ct2" value="ct2" checked>
-                            <label class="form-check-label" for="ct2">CT2</label>
+                            <input class="form-check-input" type="checkbox" id="fct2" value="fct2"  {{ ($predata['fct2'] == true ? "checked" : '') }}>
+                            <label class="form-check-label" for="fct2">CT2</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="ct3" value="ct3" checked>
-                            <label class="form-check-label" for="ct3">CT3</label>
+                            <input class="form-check-input" type="checkbox" id="fct3" value="fct3"  {{ ($predata['fct3'] == true ? "checked" : '') }}>
+                            <label class="form-check-label" for="fct3">CT3</label>
                         </div>
                     </div>
                 </div>
@@ -97,96 +97,26 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($allmark as $key => $mark)
                 <tr>
-                    <th>Kamrul</th>
-                    <td>13</td>
-                    <td>15</td>
-                    <td>8</td>
-                    <td>63</td>
-                    <td>75</td>
-                    <td>60</td>
-                    <td>15</td>
-                    <td>20</td>
-                    <td>6</td>
-                    <td>83</td>
-                    <td>100</td>
-                    <td>90</td>
-                    <td>150</td>
-                    <td>75</td>
-                    <td>3</td>
+                    <th>{{ $mark->name }}</th>
+                    <td>{{ $mark->h_ct_one }}</td>
+                    <td>{{ $mark->h_ct_two }}</td>
+                    <td>{{ $mark->h_ct_three }}</td>
+                    <td>{{ $mark->half_yearly }}</td>
+                    <td>{{ $mark->h_and_avg_ct }}</td>
+                    <td>{{ $mark->h_convert }}</td>
+                    <td>{{ $mark->f_ct_one }}</td>
+                    <td>{{ $mark->f_ct_two }}</td>
+                    <td>{{ $mark->f_ct_three }}</td>
+                    <td>{{ $mark->final }}</td>
+                    <td>{{ $mark->f_and_avg_ct }}</td>
+                    <td>{{ $mark->f_convert }}</td>
+                    <td>{{ $mark->grand }}</td>
+                    <td>{{ $mark->avg_grand }}</td>
+                    <td>{{ $mark->rank }}</td>
                 </tr>
-                <tr>
-                    <th>Santo</th>
-                    <td>13</td>
-                    <td>15</td>
-                    <td>8</td>
-                    <td>63</td>
-                    <td>75</td>
-                    <td>60</td>
-                    <td>15</td>
-                    <td>20</td>
-                    <td>6</td>
-                    <td>83</td>
-                    <td>100</td>
-                    <td>90</td>
-                    <td>150</td>
-                    <td>75</td>
-                    <td>4</td>
-                </tr>
-                <tr>
-                    <th>Kaif</th>
-                    <td>13</td>
-                    <td>15</td>
-                    <td>8</td>
-                    <td>63</td>
-                    <td>75</td>
-                    <td>60</td>
-                    <td>15</td>
-                    <td>20</td>
-                    <td>6</td>
-                    <td>83</td>
-                    <td>100</td>
-                    <td>90</td>
-                    <td>150</td>
-                    <td>75</td>
-                    <td>5</td>
-                </tr>
-                <tr>
-                    <th>emon</th>
-                    <td>13</td>
-                    <td>15</td>
-                    <td>8</td>
-                    <td>63</td>
-                    <td>75</td>
-                    <td>60</td>
-                    <td>15</td>
-                    <td>20</td>
-                    <td>6</td>
-                    <td>83</td>
-                    <td>100</td>
-                    <td>90</td>
-                    <td>150</td>
-                    <td>75</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <th>Its me</th>
-                    <td>13</td>
-                    <td>15</td>
-                    <td>8</td>
-                    <td>63</td>
-                    <td>75</td>
-                    <td>60</td>
-                    <td>15</td>
-                    <td>20</td>
-                    <td>6</td>
-                    <td>83</td>
-                    <td>100</td>
-                    <td>90</td>
-                    <td>150</td>
-                    <td>75</td>
-                    <td>1</td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
