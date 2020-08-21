@@ -219,6 +219,9 @@ class StudentController extends Controller
         $filename = 'Student_list.pdf';
         $mpdf = new Mpdf();
 
+        if($request->input('landscape'))
+            $mpdf->AddPage('L');
+
         $stylesheet = file_get_contents('css/mpdf.css');
         $mpdf->WriteHTML($stylesheet,1);
         

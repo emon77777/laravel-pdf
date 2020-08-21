@@ -11,7 +11,7 @@
         <h4>{{$errors->first()}}</h4>
     @endif
     <div class="row justify-content-center" style="margin:20px">
-        <form class="form-horizontal" id="pdf" method="post" action="">
+        <form class="form-horizontal" target="_blank"  id="pdf" method="post" action="">
             @csrf
             <div class="card">
                 <div class="form-group">
@@ -65,6 +65,17 @@
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" id="final_column" name="final_column" {{ ($predata['final_column'] == true ? "checked" : '') }}>
                             <label class="form-check-label" for="final_column">Final Column</label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-check-label" for="inlineRadio1"><h5>* Which Page size you want to see ?</h5> </label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="landscape" name="landscape">
+                            <label class="form-check-label" for="landscape">Landscape</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="afour" name="afour" checked>
+                            <label class="form-check-label" for="afour">A4 size</label>
                         </div>
                     </div>
                 </div>
