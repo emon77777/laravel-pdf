@@ -11,7 +11,7 @@
         <h4>{{$errors->first()}}</h4>
     @endif
     <div class="row justify-content-center" style="margin:20px">
-        <form class="form-horizontal" target="_blank"  id="pdf" method="post" action="">
+        <form class="form-horizontal"  id="pdf" method="post" action="">
             @csrf
             <div class="card">
                 <div class="form-group">
@@ -103,10 +103,12 @@
     }
     @endif
     $('#button1').click(function(){
+        $('#pdf').removeAttr("target");
         $('#pdf').attr('action', '{{ url("student/all") }}');
         $('#pdf').submit();
     });
     $('#button2').click(function(){
+        $('#pdf').attr('target', '_blank');
         $('#pdf').attr('action', '{{ url("student/pdf") }}');
         $('#pdf').submit();
     });
